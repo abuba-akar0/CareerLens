@@ -3,5 +3,3 @@ __pycache__/
 .env
 .vscode/
 *.DS_Store
-models/*.npy
-models/*.pkl
