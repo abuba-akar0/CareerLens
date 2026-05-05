@@ -1,0 +1,207 @@
+{
+  "Software Engineer": {
+    "min": 80000,
+    "max": 250000,
+    "avg": 150000
+  },
+  "Data Scientist": {
+    "min": 120000,
+    "max": 300000,
+    "avg": 200000
+  },
+  "Web Developer": {
+    "min": 60000,
+    "max": 180000,
+    "avg": 100000
+  },
+  "AI Engineer": {
+    "min": 150000,
+    "max": 400000,
+    "avg": 250000
+  },
+  "Cybersecurity Analyst": {
+    "min": 100000,
+    "max": 250000,
+    "avg": 160000
+  },
+  "Cloud Engineer": {
+    "min": 100000,
+    "max": 280000,
+    "avg": 180000
+  },
+  "Mobile App Developer": {
+    "min": 70000,
+    "max": 200000,
+    "avg": 130000
+  },
+  "Network Engineer": {
+    "min": 70000,
+    "max": 200000,
+    "avg": 120000
+  },
+  "Game Developer": {
+    "min": 60000,
+    "max": 180000,
+    "avg": 100000
+  },
+  "Doctor (MBBS)": {
+    "min": 70000,
+    "max": 300000,
+    "avg": 150000
+  },
+  "Dentist": {
+    "min": 60000,
+    "max": 250000,
+    "avg": 130000
+  },
+  "Pharmacist": {
+    "min": 50000,
+    "max": 150000,
+    "avg": 90000
+  },
+  "Nurse": {
+    "min": 40000,
+    "max": 120000,
+    "avg": 70000
+  },
+  "Psychologist": {
+    "min": 60000,
+    "max": 180000,
+    "avg": 100000
+  },
+  "Civil Engineer": {
+    "min": 80000,
+    "max": 220000,
+    "avg": 130000
+  },
+  "Electrical Engineer": {
+    "min": 80000,
+    "max": 220000,
+    "avg": 130000
+  },
+  "Mechanical Engineer": {
+    "min": 75000,
+    "max": 200000,
+    "avg": 120000
+  },
+  "Architect": {
+    "min": 70000,
+    "max": 250000,
+    "avg": 140000
+  },
+  "Chartered Accountant": {
+    "min": 100000,
+    "max": 500000,
+    "avg": 250000
+  },
+  "Financial Analyst": {
+    "min": 60000,
+    "max": 180000,
+    "avg": 100000
+  },
+  "ACCA Accountant": {
+    "min": 80000,
+    "max": 300000,
+    "avg": 170000
+  },
+  "Investment Analyst": {
+    "min": 100000,
+    "max": 300000,
+    "avg": 180000
+  },
+  "Banker": {
+    "min": 60000,
+    "max": 160000,
+    "avg": 100000
+  },
+  "Digital Marketer": {
+    "min": 50000,
+    "max": 150000,
+    "avg": 90000
+  },
+  "Marketing Manager": {
+    "min": 80000,
+    "max": 200000,
+    "avg": 130000
+  },
+  "HR Manager": {
+    "min": 60000,
+    "max": 180000,
+    "avg": 100000
+  },
+  "Supply Chain Manager": {
+    "min": 70000,
+    "max": 200000,
+    "avg": 120000
+  },
+  "Business Analyst": {
+    "min": 70000,
+    "max": 180000,
+    "avg": 110000
+  },
+  "UX/UI Designer": {
+    "min": 60000,
+    "max": 180000,
+    "avg": 110000
+  },
+  "Graphic Designer": {
+    "min": 45000,
+    "max": 150000,
+    "avg": 85000
+  },
+  "Interior Designer": {
+    "min": 50000,
+    "max": 180000,
+    "avg": 100000
+  },
+  "Fashion Designer": {
+    "min": 40000,
+    "max": 150000,
+    "avg": 80000
+  },
+  "Video Editor": {
+    "min": 40000,
+    "max": 120000,
+    "avg": 70000
+  },
+  "Lawyer": {
+    "min": 80000,
+    "max": 400000,
+    "avg": 180000
+  },
+  "Corporate Lawyer": {
+    "min": 120000,
+    "max": 500000,
+    "avg": 280000
+  },
+  "Diplomat/CSS Officer": {
+    "min": 80000,
+    "max": 250000,
+    "avg": 150000
+  },
+  "Economist": {
+    "min": 80000,
+    "max": 220000,
+    "avg": 130000
+  },
+  "Teacher": {
+    "min": 35000,
+    "max": 100000,
+    "avg": 60000
+  },
+  "Journalist": {
+    "min": 40000,
+    "max": 130000,
+    "avg": 75000
+  },
+  "Agricultural Officer": {
+    "min": 45000,
+    "max": 120000,
+    "avg": 70000
+  },
+  "Environmental Scientist": {
+    "min": 50000,
+    "max": 140000,
+    "avg": 80000
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "IT & Data": {
+    "min": 80000,
+    "max": 300000,
+    "avg": 170000
+  },
+  "Medical & Health": {
+    "min": 60000,
+    "max": 300000,
+    "avg": 120000
+  },
+  "Engineering": {
+    "min": 75000,
+    "max": 220000,
+    "avg": 130000
+  },
+  "Finance & Commerce": {
+    "min": 70000,
+    "max": 300000,
+    "avg": 160000
+  },
+  "Business & Marketing": {
+    "min": 60000,
+    "max": 200000,
+    "avg": 110000
+  },
+  "Design & Creative": {
+    "min": 45000,
+    "max": 180000,
+    "avg": 90000
+  },
+  "Law & Social Sciences": {
+    "min": 80000,
+    "max": 400000,
+    "avg": 170000
+  },
+  "Education & Media": {
+    "min": 35000,
+    "max": 140000,
+    "avg": 72000
+  }
+}

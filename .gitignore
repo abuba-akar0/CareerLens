@@ -3,3 +3,19 @@ __pycache__/
 .env
 .vscode/
 *.DS_Store
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# ML Models & Data Artifacts
+*.pkl
+*.npy
+*.joblib
+
+# Streamlit
+.streamlit/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
