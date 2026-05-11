@@ -62,4 +62,8 @@ The app opens at `http://localhost:8501`.
 
 ## 🤝 Contributing
 
+<<<<<<< HEAD
 Contributions, issues, and feature requests are welcome!
+=======
+Contributions, issues, and feature requests are welcome!
+>>>>>>> 236b7ee939c2bfe66ce1632df97e80cbc5dcbb05
