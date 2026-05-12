@@ -1,69 +1,97 @@
 # 🎓 CareerLens Pakistan
 
-> AI-powered career guidance platform built for Pakistani students and professionals.
+**CareerLens** is an AI-powered career guidance platform specifically designed for the Pakistani professional landscape. It leverages modern machine learning techniques to help students and professionals navigate their career paths with data-driven insights.
 
-![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.x-FF4B4B?logo=streamlit&logoColor=white)
-![ML](https://img.shields.io/badge/ML-Scikit--Learn-F7931E?logo=scikit-learn&logoColor=white)
+![CareerLens Banner](https://img.shields.io/badge/AI--Powered-Career--Guidance-blueviolet?style=for-the-badge)
+![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit)
+![Python](https://img.shields.io/badge/Language-Python-3776AB?style=for-the-badge&logo=Python)
 
-## ✨ Features
+---
 
-- **🎯 AI Career Matcher** — Describe your interests in natural language and get top 3 career matches with confidence scores
-- **📚 Career Directory** — Browse and filter 42 careers across 8 categories
-- **⚖️ Career Comparison** — Compare any two careers side-by-side with salary charts
-- **🎓 Readiness Assessment** — AI-predicted readiness score for your top match
-- **🏫 University Finder** — Province-wise university recommendations (Punjab, Sindh, KPK, Balochistan, Islamabad)
-- **📌 Step-by-Step Roadmaps** — From Matriculation to professional employment
-- **💰 Salary Insights** — Visual salary breakdowns with min/avg/max charts
+## 🚀 Key Features
 
-## 🛠️ Tech Stack
+### 🎯 AI Matcher
+- **Semantic Search**: Describe your interests in natural language, and our **SBERT** (Sentence-BERT) engine finds the closest matches in our local dataset.
+- **Career Compass Quiz**: A minimalist, intuitive "Apple-style" quiz using modern UI components (`st.pills`) to profile your professional personality.
 
-| Component | Technology |
-|-----------|-----------|
-| Frontend | [Streamlit](https://streamlit.io/) |
-| NLP Embeddings | [Sentence-Transformers](https://www.sbert.net/) (`all-MiniLM-L6-v2`) |
-| ML Classification | Scikit-Learn (KNN Classifier) |
-| Data | Pandas, NumPy |
+### 📊 Readiness Assessment
+- **Score Prediction**: A linear regression model calculates your professional readiness based on 5 key dimensions.
+- **Visual Feedback**: Interactive **Plotly Gauge Charts** provide instant visual feedback on your preparation level.
+- **Actionable Advice**: Receive dynamic, personalized guidance to bridge your skill gaps.
 
-## 📦 Project Structure
+### 📚 Career Directory
+- Browse a comprehensive database of **74+ careers** tailored to Pakistan.
+- Detailed roadmaps, educational requirements, and top universities in every province.
 
+### ⚖️ Career Comparison
+- Side-by-side analysis of salary expectations (Min/Avg/Max).
+- Comparative educational pathways and required degree grids.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Frontend**: [Streamlit](https://streamlit.io/) (with custom Glassmorphism CSS)
+- **AI Engine**: 
+  - `Sentence-Transformers` (SBERT) for semantic matching.
+  - `Scikit-learn` (KNN for category classification, Linear Regression for readiness).
+- **Data Visualization**: [Plotly](https://plotly.com/) & [Altair](https://altair-viz.github.io/).
+- **Data Handling**: `Pandas` & `NumPy`.
+
+---
+
+## 📦 Installation & Setup
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/abuba-akar0/CareerLens.git
+   cd CareerLens
+   ```
+
+2. **Create a Virtual Environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the Application**
+   ```bash
+   streamlit run app.py
+   ```
+
+---
+
+## 📂 Project Structure
+
+```text
+├── app.py              # Main entry point & Home page
+├── ml_engine.py        # AI logic, Model loading & Data processing
+├── ui_components.py    # Shared UI elements & Custom CSS
+├── data/               # Local datasets (CSV)
+├── models/             # Trained ML models (.pkl) & Salary lookups
+├── pages/              # Multi-page application modules
+└── requirements.txt    # Project dependencies
 ```
-CareerLens/
-├── app.py                              # Main Streamlit application
-├── requirements.txt                    # Python dependencies
-├── data/
-│   └── careers_pakistan.csv            # 42 careers with full metadata
-└── models/
-    ├── knn_model.pkl                  # KNN career classifier
-    ├── le_career.pkl                  # Label encoder for career names
-    ├── readiness_model.pkl            # Career readiness predictor
-    ├── career_embeddings.npy          # Pre-computed career embeddings
-    ├── salary_lookup.json             # Per-career salary data
-    └── category_salary_fallback.json  # Category-level salary fallback
-```
 
-## 🚀 Quick Start
+---
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/abuba-akar0/CareerLens.git
-cd CareerLens
+## 🎨 Design Philosophy
 
-# 2. Install dependencies
-pip install -r requirements.txt
+CareerLens follows a **Minimalistic & Intuitive** design system:
+- **Glassmorphism**: Premium frosted-glass UI elements for a modern feel.
+- **High Contrast**: Optimized for readability with a sleek dark-themed palette.
+- **HCI Optimized**: Reduced cognitive load by hiding technical jargon and focusing on actionable insights.
 
-# 3. Run the app
-streamlit run app.py
-```
+---
 
-The app opens at `http://localhost:8501`.
+## 📄 License
 
-> **Note:** The `all-MiniLM-L6-v2` model (~80MB) downloads automatically on first run and is cached locally.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
-
-<<<<<<< HEAD
-Contributions, issues, and feature requests are welcome!
-=======
-Contributions, issues, and feature requests are welcome!
->>>>>>> 236b7ee939c2bfe66ce1632df97e80cbc5dcbb05
+---
+*Built with ❤️ for the future of Pakistan.*
