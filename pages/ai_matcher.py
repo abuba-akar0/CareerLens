@@ -35,13 +35,48 @@ with tab1:
     }
     
     selected_tags = st.multiselect("Select your areas of interest (Optional):", options=list(tag_options.keys()))
-    user_input = st.text_area("Tell us about yourself...", height=120, placeholder="e.g., I want to solve real world problems using AI and computer vision.", label_visibility="collapsed")
+    
+    st.markdown("<p style='font-size:0.95rem; color:#f3f4f6; margin-bottom:5px;'>💡 <b>Try an Example Prompt:</b></p>", unsafe_allow_html=True)
+    
+    example_prompts = [
+        "I love mathematics and want to build modern tech infrastructure.",
+        "I want to help patients recover from physical injuries.",
+        "I enjoy analyzing financial data and creating business strategies.",
+        "I am creative, love designing interfaces, and want to work remotely."
+    ]
+    
+    selected_example = st.pills("Examples", example_prompts, selection_mode="single", label_visibility="collapsed")
+    default_text = selected_example if selected_example else ""
+    
+    user_input = st.text_area("Tell us about yourself...", value=default_text, height=120, placeholder="e.g., I want to solve real world problems using AI and computer vision.", label_visibility="collapsed")
     
     if st.button("Find My Career Match 🚀", key="btn_text", type="primary"):
-        if len(user_input.split()) < 3 and not selected_tags:
+        word_list = user_input.split()
+        if len(word_list) < 3 and not selected_tags:
             st.warning("Please provide a bit more detail or select some tags!")
         else:
-            query = user_input.lower()
+            # --- NEW FIX: GIBBERISH PATTERN FILTER (WORD-BOUNDED) ---
+            import re
+            clean_text = user_input.lower().strip()
+            word_list = clean_text.split()
+            
+            # 1. Check for long sequences of consecutive consonants WITHIN individual words
+            consonant_sequences = any(re.search(r'[bcdfghjklmnpqrstvwxz]{5,}', word) for word in word_list)
+            
+            # 2. Check for impossible English vowel clusters (Whole word matching)
+            impossible_vowels = ["uiop", "iooo", "eeee", "aaaa", "uuu"]
+            has_impossible_vowels = any(cluster in clean_text for cluster in impossible_vowels)
+            
+            # 3. FIX: Keyboard smash rows now require word boundaries (\b) so they don't trip on real words
+            keyboard_smash_patterns = [r'\basdf', r'sdfg', r'dfgh', r'ghjk', r'hjkl\b', r'\bqwerty\b']
+            has_keyboard_smash = any(re.search(pattern, clean_text) for pattern in keyboard_smash_patterns)
+
+            if (consonant_sequences or has_impossible_vowels or has_keyboard_smash) and not selected_tags:
+                st.error("🔍 **Invalid Input Detected**")
+                st.warning("Your text matches common keyboard smashing patterns or random noise. Please type real educational or career keywords.")
+                st.stop() # Force execution to halt immediately for gibberish
+                
+            query = clean_text
             
             # The Fixed Expander Logic
             expander_dict = {
@@ -61,6 +96,18 @@ with tab1:
             for trigger, expansion in expander_dict.items():
                 if trigger in input_words:
                     query += f" {expansion}"
+                    
+            # --- NEW FIX: EXACT WORD CONTEXT-AWARE INFRASTRUCTURE ---
+            if "infrastructure" in query:
+                import re
+                # Use \b to ensure we match whole words only (prevents 'networks' from matching 'network')
+                tech_pattern = r'\b(tech|computer|software|digital|networking)\b'
+                civil_pattern = r'\b(civil|build|bridge|road|city|construction|dam|transit|networks)\b'
+                
+                if re.search(tech_pattern, query):
+                    query += " cloud devops server networking backend database datacenter computing computing systems"
+                elif re.search(civil_pattern, query):
+                    query += " construction architectural structures concrete materials highways public works engineering"
                     
             for tag in selected_tags:
                 query += f" {tag_options[tag]}"
@@ -126,35 +173,53 @@ if final_search_query:
             matched_category = "General"
             
         # 2. SBERT Semantic Match
-        similarities = cosine_similarity(user_emb, all_career_embs)[0]
-        max_sim = np.max(similarities)
-        top_3_idx = np.argsort(similarities)[::-1][:3]
+        raw_similarities = cosine_similarity(user_emb, all_career_embs)[0]
+        top_3_idx = np.argsort(raw_similarities)[::-1][:3]
+        raw_top_score = float(raw_similarities[top_3_idx[0]])
         
         st.markdown("---")
         
-        # 3. Dynamic Threshold Handling
-        if max_sim < 0.15:
-            st.markdown("""
-            <div style="background: rgba(255,71,87,0.1); border: 1px solid rgba(255,71,87,0.3); border-radius: 12px; padding: 20px; text-align: center;">
-                <h3 style="color: #ff4757; margin-top: 0;">We couldn't find a strong match 🕵️‍♂️</h3>
-                <p style="color: #e0e0e0; margin-bottom: 0;">It looks like your interest might be outside our core Pakistani career dataset. Try exploring the Directory or adding more specific skills/tags!</p>
-            </div>
-            """, unsafe_allow_html=True)
-        else:
-            with st.expander("🤖 AI Confidence Details"):
-                if max_sim < 0.25:
-                    st.warning("⚠️ Low Confidence Match: We found some related fields, but they might not be a perfect fit.")
-                st.write(f"Top Similarity Score: **{max_sim*100:.1f}%**")
-                
-            st.markdown(f"""
-            <div style="background: rgba(102,126,234,0.1); border: 1px solid rgba(102,126,234,0.2); border-radius: 12px; padding: 20px; margin-bottom: 30px; text-align: center;">
-                <span style="color: #8888aa; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Predicted Category Match</span>
-                <h2 style="margin: 5px 0 0 0; color: #f093fb !important;">{matched_category}</h2>
-            </div>
-            """, unsafe_allow_html=True)
+        # 3. Direct Raw Threshold Gate
+        if raw_top_score < 0.22:
+            st.error("🕵️‍♂️ **Out of Scope!**\n\nWe couldn't find a strong match. Your query seems outside our core Pakistani career dataset or is too brief to understand. Please try again with more relevant professional keywords.")
+            st.stop()
             
-            st.subheader("🌟 Top 3 Career Matches")
-            for rank, i in enumerate(top_3_idx):
-                row = df.iloc[[i]]
+        # --- NON-LINEAR SMOOTH SCALING ---
+        def scale_score(raw_val):
+            if raw_val >= 0.60:
+                return min(int(90 + ((raw_val - 0.60) / 0.40) * 9), 99)
+            elif raw_val >= 0.22:
+                # Map 0.22-0.60 to 50-90%
+                return int(50 + ((raw_val - 0.22) / 0.38) * 40)
+            return int((raw_val / 0.22) * 49)
+            
+        # Scale the full array for UI consistency
+        similarities = np.array([scale_score(val) / 100.0 for val in raw_similarities])
+        calibrated_score = int(similarities[top_3_idx[0]] * 100)
+            
+        with st.expander("🤖 AI Confidence Details"):
+            if calibrated_score < 60:
+                st.warning("⚠️ Moderate Confidence Match: We found some related fields, but they might not be a perfect fit.")
+            st.write(f"Top Calibrated Similarity Score: **{calibrated_score}%** (Raw Score: {raw_top_score:.3f})")
+            
+        # FIX: Explicitly tie the category header to the rank-1 semantic match
+        if len(top_3_idx) > 0:
+            top_row = df.iloc[[top_3_idx[0]]]
+            if not top_row.empty:
+                matched_category = top_row['Career_Category'].values[0]
+                
+        st.markdown(f"""
+        <div style="background: rgba(102,126,234,0.1); border: 1px solid rgba(102,126,234,0.2); border-radius: 12px; padding: 20px; margin-bottom: 30px; text-align: center;">
+            <span style="color: #8888aa; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Predicted Category Match</span>
+            <h2 style="margin: 5px 0 0 0; color: #f093fb !important;">{matched_category}</h2>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.subheader("🌟 Top 3 Career Matches")
+        for rank, i in enumerate(top_3_idx):
+            row = df.iloc[[i]]
+            # Safe UI Components Loop Iterations with bounds filter
+            if not row.empty:
                 name = row['Career_Name'].values[0]
+                # Pass safe dictionary variables
                 render_card(name, row, salary_lookup, cat_salary, rank=rank+1, score=similarities[i])
