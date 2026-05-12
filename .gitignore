@@ -151,8 +151,3 @@ cython_debug/
 .DS_Store
 Thumbs.db
 
-# Project specific
-models/*.pkl
-models/*.joblib
-models/*.npy
-.streamlit/
